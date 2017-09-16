@@ -4,8 +4,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.techyourchance.sqlitebenchmark.screens.example.mvcviews.ExampleViewMvc;
-import com.techyourchance.sqlitebenchmark.screens.example.mvcviews.ExampleViewMvcImpl;
+import com.techyourchance.sqlitebenchmark.screens.test.mvcviews.TestViewMvc;
+import com.techyourchance.sqlitebenchmark.screens.test.mvcviews.TestViewMvcImpl;
 
 /**
  * This class implements Service Locator pattern in order to provide implementations of
@@ -35,8 +35,8 @@ public class ViewMvcFactory {
     @SuppressWarnings("unchecked")
     public <T extends ViewMvc> T newMvcView(Class<T> mvcViewClass, @Nullable ViewGroup container) {
         ViewMvc viewMvc;
-        if (mvcViewClass == ExampleViewMvc.class) {
-            viewMvc = new ExampleViewMvcImpl(mLayoutInflater, container);
+        if (mvcViewClass == TestViewMvc.class) {
+            viewMvc = new TestViewMvcImpl(mLayoutInflater, container);
         } else {
             throw new IllegalArgumentException("MVC view class " + mvcViewClass + " not supported");
         }

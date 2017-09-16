@@ -5,6 +5,7 @@ import android.app.Application;
 import com.techyourchance.sqlitebenchmark.common.logging.MyLogger;
 import com.techyourchance.sqlitebenchmark.common.multithreading.BackgroundThreadPoster;
 import com.techyourchance.sqlitebenchmark.common.multithreading.MainThreadPoster;
+import com.techyourchance.sqlitebenchmark.test.TestSqliteOpenHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -48,5 +49,11 @@ public class ApplicationModule {
     @ApplicationScope
     BackgroundThreadPoster backgroundThreadPoster() {
         return new BackgroundThreadPoster();
+    }
+
+    @Provides
+    @ApplicationScope
+    TestSqliteOpenHelper mTestSqliteOpenHelper(Application application) {
+        return new TestSqliteOpenHelper(application);
     }
 }

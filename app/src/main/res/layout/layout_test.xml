@@ -5,10 +5,17 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/btn_show_dialog"
+        android:id="@+id/btn_start_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="@string/show_dialog_button_caption"/>
+        android:text="@string/start_test_button_caption"/>
+
+    <ProgressBar
+        android:id="@+id/progress_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>
