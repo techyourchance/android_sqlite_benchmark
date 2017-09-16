@@ -6,8 +6,10 @@ import android.support.annotation.WorkerThread;
 
 import com.techyourchance.sqlitebenchmark.common.logging.MyLogger;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class TestExecutor {
 
@@ -22,12 +24,13 @@ public class TestExecutor {
     }
 
     @WorkerThread
-    public void executeTest(int totalEntities, List<Integer> testSteps) {
+    public TestResults executeTest(int totalEntities, List<Integer> testSteps) {
 
         mLogger.d(TAG, "Testing database read performance");
 
         long initNanoTime;
         long totalMiliTime;
+        Map<Integer, Long> stepsResults = new HashMap<>();
 
         for (Integer numOfEntitiesInSingleQuery : testSteps) {
 
@@ -40,9 +43,13 @@ public class TestExecutor {
 
             totalMiliTime = (System.nanoTime() - initNanoTime) / 1000000;
 
+            stepsResults.put(numOfEntitiesInSingleQuery, totalMiliTime);
+
             mLogger.d(TAG, "Total read time while querying " + numOfEntitiesInSingleQuery + " each time: " + totalMiliTime + "ms");
 
         }
+
+        return new TestResults(totalEntities, stepsResults);
     }
 
     @WorkerThread

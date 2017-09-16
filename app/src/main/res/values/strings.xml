@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Application Name</string>
+    <string name="app_name">SQLite Benchmark</string>
 
     <string name="start_test_button_caption">Start test</string>
 
+    <string name="chart_label">Total execution time in ms VS query size for a total of %1$s entries</string>
 </resources>

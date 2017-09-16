@@ -85,15 +85,16 @@ public class TestService extends BaseService {
             isAfterDatabasePreload.setValue(true);
         }
 
-        mTestExecutor.executeTest(TOTAL_ENTITIES, TEST_STEPS);
+        TestResults testResults = mTestExecutor.executeTest(TOTAL_ENTITIES, TEST_STEPS);
 
-        testCompleted();
+        testCompleted(testResults);
     }
 
-    private void testCompleted() {
+    private void testCompleted(TestResults testResults) {
         synchronized (MONITOR) {
             mTestInProgress = false;
             publishEventTestCompleted();
+            publishEventTestResults(testResults);
         }
     }
 
@@ -101,8 +102,13 @@ public class TestService extends BaseService {
         mEventBus.postSticky(new TestStatusEvent(true));
     }
 
+
     private void publishEventTestCompleted() {
         mEventBus.postSticky(new TestStatusEvent(false));
+    }
+
+    private void publishEventTestResults(TestResults testResults) {
+        mEventBus.postSticky(new TestResultsEvent(testResults));
     }
 
 }

@@ -9,6 +9,7 @@ import com.techyourchance.sqlitebenchmark.screens.common.dialogs.DialogsFactory;
 import com.techyourchance.sqlitebenchmark.screens.common.dialogs.DialogsManager;
 import com.techyourchance.sqlitebenchmark.screens.common.mvcviews.ViewMvcFactory;
 import com.techyourchance.sqlitebenchmark.screens.test.mvcviews.TestViewMvc;
+import com.techyourchance.sqlitebenchmark.test.TestResultsEvent;
 import com.techyourchance.sqlitebenchmark.test.TestService;
 import com.techyourchance.sqlitebenchmark.test.TestStatusEvent;
 
@@ -41,6 +42,13 @@ public class TestActivity extends BaseActivity implements TestViewMvc.ExampleVie
     protected void onStart() {
         super.onStart();
         checkIfTestInProgress();
+        mEventBus.register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mEventBus.unregister(this);
     }
 
     private void checkIfTestInProgress() {
@@ -50,7 +58,6 @@ public class TestActivity extends BaseActivity implements TestViewMvc.ExampleVie
         } else {
             testCompleted();
         }
-        mEventBus.register(this);
     }
 
     private void testInProgress() {
@@ -59,6 +66,11 @@ public class TestActivity extends BaseActivity implements TestViewMvc.ExampleVie
 
     private void testCompleted() {
         mViewMvc.testCompleted();
+        TestResultsEvent testResultsEvent = mEventBus.getStickyEvent(TestResultsEvent.class);
+        // we might have test results from the previous execution
+        if (testResultsEvent != null) {
+            mViewMvc.bindTestResults(testResultsEvent.getTestResults());
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -68,6 +80,11 @@ public class TestActivity extends BaseActivity implements TestViewMvc.ExampleVie
         } else {
             testCompleted();
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onTestResultsEvent(TestResultsEvent testResultsEvent) {
+        mViewMvc.bindTestResults(testResultsEvent.getTestResults());
     }
 
     @Override

@@ -4,18 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_start_test"
+    <FrameLayout
+        android:id="@+id/frame_controls"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/start_test_button_caption"/>
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
 
-    <ProgressBar
-        android:id="@+id/progress_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        <Button
+            android:id="@+id/btn_start_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start_test_button_caption"/>
+
+        <ProgressBar
+            android:id="@+id/progress_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+
+    <com.github.mikephil.charting.charts.ScatterChart
+        android:id="@+id/chart_test_results"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/frame_controls"
         android:visibility="gone"/>
 
 </RelativeLayout>
