@@ -26,7 +26,7 @@ public class TestService extends BaseService {
     private static final int TOTAL_ENTITIES = 200;
     private static final int BYTES_IN_ENTITY = 100*1024;
 
-    private static final List<Integer> TEST_STEPS = Arrays.asList(1, 5, 10, 20, 50, 100, 200);
+    private static final List<Integer> TEST_STEPS = Arrays.asList(1, 5, 10, 20, 40, 50, 100, 200);
 
     private final Object MONITOR = new Object();
 
